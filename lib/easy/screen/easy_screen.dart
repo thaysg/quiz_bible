@@ -17,12 +17,12 @@ class _EasyScreenState extends State<EasyScreen> {
   CountDownController _controller = CountDownController();
   int _duration = 15;
 
-  void updateQuiz() {
+  void updateQuiz([bool onComplete = false]) {
     setState(() {
       if (questionNumber == easyQuiz.questions.length - 1) {
         _showEndDialog();
       } else {
-        questionNumber++;
+        if(onComplete && _controller.getTime() == "0") questionNumber ++;
         resetTime();
         // print(updateQuiz);
       }
@@ -117,9 +117,7 @@ class _EasyScreenState extends State<EasyScreen> {
                       color: kWhiteColor,
                     ),
                     onComplete: () {
-                      setState(() {
-                        updateQuiz();
-                      });
+                      updateQuiz(true);
                     },
                   ),
                 ),
